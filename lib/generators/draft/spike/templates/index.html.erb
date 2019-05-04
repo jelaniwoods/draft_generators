@@ -1,0 +1,21 @@
+<div class="row mb-3">
+  <div class="col-md-12">
+    <h1 class="display-4">
+      <%= plural_table_name.titlecase %>
+
+      <%%= link_to new_<%= singular_table_name %>_path, class: "btn btn-lg btn-outline-secondary" do %>
+        <i class="fas fa-plus fa-fw"></i>
+      <%% end %>
+    </h1>
+  </div>
+</div>
+
+<%% @<%= plural_table_name %>.each_slice(3) do |slice| %>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card-deck">
+      <%%= render collection: slice, partial: "card", as: :<%= singular_table_name %> %>
+    </div>
+  </div>
+</div>
+<%% end %>
