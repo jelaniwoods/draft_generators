@@ -4,10 +4,18 @@ require "rails/generators/named_base"
 
 module Draft
   class DeviseGenerator < Rails::Generators::NamedBase
-    argument :attributes, type: :array, default: [],
-                          banner: "field:type field:type"
-    class_option :with_sentinels, type: :boolean, default: false, desc: "Skip adding comments to generated files"
-    class_option :views, aliases: "-v", type: :array, desc: "Select specific view directories to generate (confirmations, passwords, registrations, sessions, unlocks, mailer)"
+    argument :attributes,
+             type: :array,
+             default: [],
+             banner: "field:type field:type"
+    class_option :with_sentinels,
+      type: :boolean,
+      default: false,
+      desc: "Skip adding comments to generated files"
+    class_option :views,
+      aliases: "-v",
+      type: :array,
+      desc: "Select specific view directories to generate (confirmations, passwords, registrations, sessions, unlocks, mailer)"
 
     include Rails::Generators::ResourceHelpers
 
@@ -55,7 +63,7 @@ module Draft
     def add_additional_fields_for_registration(devise_service)
       scope = name.underscore.pluralize
       form_fields_to_add = devise_service.form_fields_to_add
-      
+
       if File.exist?("app/views/#{scope}/registrations/new.html.erb")
         inject_into_file("app/views/#{scope}/registrations/new.html.erb",
                          form_fields_to_add,
@@ -68,7 +76,7 @@ module Draft
                          before: devise_service.update_resource_button_block)
       end
     end
-    
+
     def with_sentinels?
       options[:with_sentinels]
     end
