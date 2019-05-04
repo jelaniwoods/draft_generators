@@ -6,8 +6,7 @@ require "rails/generators/rails/spike_controller/spike_controller_generator"
 module Draft
   class SpikeControllerGenerator < ::Rails::Generators::ScaffoldControllerGenerator
     source_root Rails::Generators::ScaffoldControllerGenerator.source_root
-
-    remove_hook_for :template_engine
+    source_root File.expand_path('../templates', __FILE__)
 
     def generate_views
       invoke Draft::SpikeErbGenerator
