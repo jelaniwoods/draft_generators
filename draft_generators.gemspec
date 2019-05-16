@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0".freeze) if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib".freeze]
   s.authors = ["Raghu Betina".freeze]
-  s.date = "2019-05-01"
+  s.date = "2019-05-16"
   s.description = "This is a set of generators that help beginners learn to program. Primarily, they generate code that is more explicit and verbose and less idiomatic and \u201Cmagical\u201D than the built-in scaffold generator, which is helpful for beginners while they are learning how exactly things are wired together.".freeze
   s.email = "raghu@firstdraft.com".freeze
   s.extra_rdoc_files = [
@@ -54,6 +54,17 @@ Gem::Specification.new do |s|
     "lib/generators/draft/layout/templates/_flashes.html.erb",
     "lib/generators/draft/layout/templates/_navbar.html.erb",
     "lib/generators/draft/layout/templates/layout.html.erb",
+    "lib/generators/draft/lti/lti_controller_generator.rb",
+    "lib/generators/draft/lti/lti_erb_generator.rb",
+    "lib/generators/draft/lti/lti_generator.rb",
+    "lib/generators/draft/lti/templates/_card.html.erb",
+    "lib/generators/draft/lti/templates/_form.html.erb",
+    "lib/generators/draft/lti/templates/_list_item.html.erb",
+    "lib/generators/draft/lti/templates/_table_row.html.erb",
+    "lib/generators/draft/lti/templates/edit.html.erb",
+    "lib/generators/draft/lti/templates/index.html.erb",
+    "lib/generators/draft/lti/templates/new.html.erb",
+    "lib/generators/draft/lti/templates/show.html.erb",
     "lib/generators/draft/model/USAGE",
     "lib/generators/draft/model/model_generator.rb",
     "lib/generators/draft/resource/USAGE",
@@ -83,11 +94,20 @@ Gem::Specification.new do |s|
     "lib/generators/draft/scaffold/templates/index.html.erb",
     "lib/generators/draft/scaffold/templates/new.html.erb",
     "lib/generators/draft/scaffold/templates/show.html.erb",
+    "lib/generators/draft/spike/spike_generator.rb",
+    "lib/generators/draft/spike/templates/controllers/controller.rb",
+    "lib/generators/draft/spike/templates/controllers/read_only_controller.rb",
+    "lib/generators/draft/spike/templates/views/_card.html.erb",
+    "lib/generators/draft/spike/templates/views/_form.html.erb",
+    "lib/generators/draft/spike/templates/views/edit.html.erb",
+    "lib/generators/draft/spike/templates/views/index.html.erb",
+    "lib/generators/draft/spike/templates/views/new.html.erb",
+    "lib/generators/draft/spike/templates/views/show.html.erb",
     "lib/rails_tag_service.rb"
   ]
   s.homepage = "http://github.com/raghubetina/draft_generators".freeze
   s.licenses = ["MIT".freeze]
-  s.rubygems_version = "2.7.8".freeze
+  s.rubygems_version = "3.0.1".freeze
   s.summary = "Generators that help beginners learn to program.".freeze
 
   if s.respond_to? :specification_version then
