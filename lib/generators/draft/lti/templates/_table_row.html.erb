@@ -1,0 +1,23 @@
+<tr>
+<% attributes.reject(&:password_digest?).each do |attribute| -%>
+  <td>
+    <%%= <%= singular_table_name %>.<%= attribute.name %> %>
+  </td>
+
+<% end -%>
+  <td>
+    <div class="btn-group">
+      <%%= link_to <%= singular_table_name %>, class: "btn btn-sm btn-outline-secondary" do %>
+        <i class="fas fa-search-plus fa-fw"></i>
+      <%% end %>
+
+      <%%= link_to edit_<%= singular_table_name %>_url(<%= singular_table_name %>), class: "btn btn-sm btn-outline-secondary" do %>
+        <i class="fas fa-edit fa-fw"></i>
+      <%% end %>
+
+      <%%= link_to <%= singular_table_name %>, method: :delete, data: { confirm: "Do you really want to delete this <%= singular_table_name %>?" }, class: "btn btn-sm btn-outline-secondary" do %>
+        <i class="fas fa-trash-alt fa-fw"></i>
+      <%% end %>
+    </div>
+  </td>
+</tr>
