@@ -4,11 +4,11 @@ module Draft
     
     def generate_layout
       log :insert, "Scaffolding routes"
-      content = "  root \"application#landing\"" +
-              "  resource :launch, only: :create" +
-              "  get \"/config" => \"launches#xml_config\"" +
-              "  get \"/landing\", to: \"application#landing\", as: \"landing\""
-      route(content)
+      # content = "  root \"application#landing\"" +
+      #         "  resource :launch, only: :create" +
+      #         "  get \"/config" => \"launches#xml_config\"" +
+      #         "  get \"/landing\", to: \"application#landing\", as: \"landing\""
+      # route(content)
 
       log :insert, "Adding launches views"
       empty_directory File.join("app/views", "launches")
