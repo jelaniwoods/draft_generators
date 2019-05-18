@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "generators/draft/lti/lti_controller_generator"
-require "rails/generators/rails/lti/lti_generator"
+# require "generators/draft/lti/lti_controller_generator"
+# require "rails/generators/rails/lti/lti_generator"
 
 module Draft
   class LtiGenerator < ::Rails::Generators::NamedBase
