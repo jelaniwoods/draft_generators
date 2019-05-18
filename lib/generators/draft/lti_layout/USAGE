@@ -1,0 +1,7 @@
+Description:
+  Just go fuckin' hog wild with it
+  Generates routes for /, /launch, /config, and /landing
+  Genrates action for /, /launch, /config, and /landing
+  Genrates view for /launch, and /landing
+
+

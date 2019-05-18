@@ -1,6 +1,6 @@
 Description:
 
-    Generates an entire database-backed CRUD duplicate with a web interface:
+    Generates an entire database-backed CRUD resource with a web interface:
 
      - the database table (migration to create it)
      - the model to interact with it
@@ -8,4 +8,4 @@ Description:
 
 Examples:
 
-    rails generate draft:duplicate post title body:text published:boolean
+    rails generate draft:resource post title body:text published:boolean
