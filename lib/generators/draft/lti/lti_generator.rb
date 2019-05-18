@@ -24,8 +24,7 @@ module Draft
     end
 
     def generate_routes
-        scaffold_routes
-      end
+      scaffold_routes
     end
 
     private 
