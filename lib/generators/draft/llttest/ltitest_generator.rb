@@ -6,13 +6,7 @@ module Draft
 
 
     def generate_controller
-      return if skip_controller?
-
-      if read_only?
-        template "controllers/read_only_controller.rb", "app/controllers/#{plural_table_name.underscore}_controller.rb"
-      else
-        template "controllers/controller.rb", "app/controllers/#{plural_table_name.underscore}_controller.rb"
-      end
+      template "controllers/controller.rb", "app/controllers/#{plural_table_name.underscore}_controller.rb"
     end
 
     def generate_model
