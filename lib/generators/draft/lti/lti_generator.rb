@@ -32,9 +32,9 @@ module Draft
 
     def scaffold_routes
       log :route, "Scaffolding routes"
-      route <<-'RUBY'
+      route <<-RUBY.gsub(/^      /, "")
 
-        resources #{plural_symbol_name}, only: %i[]
+        resources \#{plural_table_name.to_sym}, only: %i[]
       RUBY
     end
 
