@@ -25,11 +25,11 @@ module Draft
     end
 
     def generate_routes
-      scaffold_routes
-      # if singular_table_name == "launch"
-      #   scaffold_launch
-      # else
-      # end
+      if singular_table_name == "launch"
+        scaffold_launch
+      else
+        scaffold_general_routes
+      end
     end
 
   private
