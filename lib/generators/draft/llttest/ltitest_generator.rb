@@ -10,38 +10,22 @@ module Draft
     end
 
     def generate_model
-      return if skip_model?
       invoke "draft:model"
     end
 
     def create_root_folder
-      empty_directory File.join("app/views", "#{singular_table_name}_templates")
+      empty_directory File.join("app/views", plural_table_name)
     end
 
     def generate_view_files
       available_views.each do |view|
         filename = view_filename_with_extensions(view)
-        template filename, File.join("app/views", "#{singular_table_name}_templates", File.basename(options[:new_form_name].presence || filename))
+        template filename, File.join("app/views", plural_table_name, File.basename(options[:new_form_name].presence || filename))
       end
     end
 
     def generate_routes
-      return if skip_controller?
-
-      if read_only?
-        read_only_routes
-      else
-        golden_seven_routes
-      end
-    end
-
-    def generate_specs
-      # Hotfix to prevent specs during MSM Associations
-      return
-      # return if read_only? || skip_controller? || skip_model?
-
-      template "specs/crud_spec.rb", "spec/features/crud_#{plural_table_name.underscore}_spec.rb"
-      template "specs/factories.rb", "spec/factories/#{plural_table_name.underscore}.rb"
+      golden_seven_routes
     end
 
   private
