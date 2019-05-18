@@ -4,7 +4,7 @@
 # require "rails/generators/rails/lti/lti_generator"
 
 module Draft
-  class LtiGenerator < ::Rails::Generators::NamedBase
+  class LtiGenerator < Rails::Generators::NamedBase
     source_root File.expand_path("../templates", __FILE__)
 
     argument :attributes, type: :array, default: [], banner: "field:type field:type"
