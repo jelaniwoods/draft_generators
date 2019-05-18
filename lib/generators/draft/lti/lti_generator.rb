@@ -55,8 +55,8 @@ module Draft
 
             resources plural_table_name.to_sym, only: :create
           RUBY
-
-        elsif singular_table_name == "administrator"
+        end
+        if singular_table_name == "administrator"
           route <<-RUBY.gsub(/^      /, "")
 
             devise_for plural_table_name.to_sym
