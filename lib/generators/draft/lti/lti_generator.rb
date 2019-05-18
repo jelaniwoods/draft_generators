@@ -34,11 +34,13 @@ module Draft
       log :route, "Scaffolding routes"
       route <<-RUBY.gsub(/^      /, "")
 
-        resources "#{plural_table_name}".to_sym, only: %i[]
-        
+        resources plural_symbol_name, only: %i[]
       RUBY
     end
 
+    def plural_symbol_name
+      plural_table_name.to_sym
+    end
 
     def route(routing_code)
       sentinel = /\.routes\.draw do(?:\s*\|map\|)?\s*$/
