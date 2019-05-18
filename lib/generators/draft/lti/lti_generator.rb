@@ -32,7 +32,7 @@ module Draft
 
     def scaffold_routes
       log :route, "Scaffolding routes"
-      route("resources :#{plural_table_name}, only: %i[]")
+      route("\tresources :#{plural_table_name}, only: %i[]")
     end
 
     def route(routing_code)
