@@ -11,7 +11,7 @@ module Draft
 
     end
 
-  private
+  protected
 
     def scaffold_routes
       log :route, "Scaffolding routes"
