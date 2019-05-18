@@ -49,7 +49,6 @@ Gem::Specification.new do |s|
     "lib/generators/draft/devise/views/templates/unlocks/new.html.erb",
     "lib/generators/draft/devise/views/views_generator.rb",
     "lib/generators/draft/launch/USAGE",
-    "lib/generators/draft/launch/lti_generator.rb",
     "lib/generators/draft/launch/templates/controllers/controller.rb",
     "lib/generators/draft/launch/templates/views/landing.html.erb",
     "lib/generators/draft/layout/USAGE",
