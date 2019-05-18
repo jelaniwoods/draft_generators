@@ -25,33 +25,30 @@ module Draft
     end
 
     def generate_routes
-      scaffold_routes
+      if singular_table_name == "launch"
+        scaffold_launch
+      else
+        scaffold_routes
+      end
     end
 
   private
 
-    def scaffold_routes
+    def scaffold_launch
+      log :route, "Scaffold launch"
+       route <<-RUBY.gsub(/^      /, "")
+
+        resources plural_table_name.to_sym, only: :create
+      RUBY
+    end
+
+    def scaffold_general_routes
       log :route, "Scaffolding routes"
-      route = ""
-      if singular_table_name == "launch"
-        route = route <<-RUBY.gsub(/^      /, "")
+      route <<-RUBY.gsub(/^      /, "")
 
-          resources plural_table_name.to_sym, only: :create
-        RUBY
-      end
-      if singular_table_name == "administrator"
-        route = route <<-RUBY.gsub(/^      /, "")
-
-          devise_for plural_table_name.to_sym
-        RUBY 
-
-      else
-        route = route <<-RUBY.gsub(/^      /, "")
-
-          resources plural_table_name.to_sym, only: %i[]
-        RUBY         
-      end
-      route
+        resources plural_table_name.to_sym, only: %i[]
+      RUBY         
+      
     end
 
 
