@@ -19,7 +19,7 @@ module Draft
     def generate_view_files
       available_views.each do |view|
         filename = view_filename_with_extensions(view)
-        template filename, File.join("app/views", plural_table_name.concat(".html.erb")))
+        template filename, File.join("app/views", plural_table_name, File.basename(options[:new_form_name].presence || filename))
       end
     end
 
@@ -42,24 +42,27 @@ module Draft
       
       def scaffold_routes
         log :route, "Scaffolding routes"
+
+        route = ""
         if singular_table_name == "launch"
-          route <<-RUBY.gsub(/^      /, "")
+          route = route <<-RUBY.gsub(/^      /, "")
 
             resources plural_table_name.to_sym, only: :create
           RUBY
         end
         if singular_table_name == "administrator"
-          route <<-RUBY.gsub(/^      /, "")
+          route = route <<-RUBY.gsub(/^      /, "")
 
             devise_for plural_table_name.to_sym
           RUBY 
 
         else
-          route <<-RUBY.gsub(/^      /, "")
+          route = route <<-RUBY.gsub(/^      /, "")
 
             resources plural_table_name.to_sym, only: %i[]
           RUBY         
         end
+        route
       end
       
       def route(routing_code)

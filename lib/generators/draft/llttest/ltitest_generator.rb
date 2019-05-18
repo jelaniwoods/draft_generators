@@ -54,13 +54,6 @@ module Draft
       route
     end
 
-    def new_form_hidden_variable
-      "@#{options[:associated_table_name].singularize}.id"
-    end
-
-    def new_form_create_path
-      "create_#{singular_table_name}_from_#{options[:associated_table_name].singularize}"
-    end
 
     def route(routing_code)
       sentinel = /\.routes\.draw do(?:\s*\|map\|)?\s*$/
@@ -71,7 +64,7 @@ module Draft
     end
 
     def available_views
-      %w(index new_form new_form_with_errors edit_form edit_form_with_errors show)
+      %w(index new edit show _card)
     end
 
     def view_filename_with_extensions(name)
