@@ -4,11 +4,17 @@ module Draft
     
     def generate_layout
       log :insert, "Scaffolding routes"
-      # content = "  root \"application#landing\"" +
-      #         "  resource :launch, only: :create" +
-      #         "  get \"/config" => \"launches#xml_config\"" +
-      #         "  get \"/landing\", to: \"application#landing\", as: \"landing\""
-      # route(content)
+
+      sentinel = /\.routes\.draw do(?:\s*\|map\|)?\s*$/
+
+      content = "  root \"application#landing\"" +
+              "  resource :launch, only: :create" +
+              "  get \"/config" => \"launches#xml_config\"" +
+              "  get \"/landing\", to: \"application#landing\", as: \"landing\""
+
+      inside "config" do
+        insert_into_file "routes.rb", content, after: sentinel
+      end
 
       log :insert, "Adding launches views"
       empty_directory File.join("app/views", "launches")
@@ -24,13 +30,7 @@ module Draft
 
     end
 
-  private
-    def route(routing_code)
-      sentinel = /\.routes\.draw do(?:\s*\|map\|)?\s*$/
+  # private
 
-      inside "config" do
-        insert_into_file "routes.rb", routing_code, after: sentinel
-      end
-    end
   end
 end
