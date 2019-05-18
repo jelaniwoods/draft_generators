@@ -25,82 +25,13 @@ module Draft
     end
 
     def generate_routes
-      golden_seven_routes
+      scaffold_routes
     end
 
   private
 
-    def golden_seven_routes
-      log :route, "RESTful routes"
-
-      route <<-RUBY.gsub(/^      /, "")
-
-        # Routes for the #{singular_table_name.humanize} resource:
-
-        # CREATE
-        get("/#{plural_table_name}/new", { :controller => "#{plural_table_name}", :action => "new_form" })
-        #{skip_post? ? "get" : "post"}("/create_#{singular_table_name}", { :controller => "#{plural_table_name}", :action => "create_row" })
-
-        # READ
-        get("/#{plural_table_name}", { :controller => "#{plural_table_name}", :action => "index" })
-        get("/#{plural_table_name}/:id_to_display", { :controller => "#{plural_table_name}", :action => "show" })
-
-        # UPDATE
-        get("/#{plural_table_name}/:prefill_with_id/edit", { :controller => "#{plural_table_name}", :action => "edit_form" })
-        #{skip_post? ? "get" : "post"}("/update_#{singular_table_name}/:id_to_modify", { :controller => "#{plural_table_name}", :action => "update_row" })
-
-        # DELETE
-        get("/delete_#{singular_table_name}/:id_to_remove", { :controller => "#{plural_table_name}", :action => "destroy_row" })
-
-        #------------------------------
-      RUBY
-    end
-
-    def read_only_routes
-      log :route, "Index and show routes"
-
-      route <<-RUBY.gsub(/^      /, "")
-      
-        # Routes for the #{singular_table_name.humanize} resource:
-
-        # READ
-        get("/#{plural_table_name}", { :controller => "#{plural_table_name}", :action => "index" })
-        get("/#{plural_table_name}/:id_to_display", { :controller => "#{plural_table_name}", :action => "show" })
-
-        #------------------------------
-      RUBY
-    end
-
-    def skip_controller?
-      options[:skip_controller] || options[:only_new_form]
-    end
-
-    def skip_model?
-      options[:skip_model] || options[:only_new_form]
-    end
-
-    def read_only?
-      options[:read_only]
-    end
-
-    def skip_validation_alerts?
-      options[:skip_validation_alerts]
-    end
-
-    def skip_post?
-      options[:skip_post]
-    end
-
-    def skip_redirect?
-      options[:skip_redirect]
-    end
-
-    def only_new_form?
-      options[:only_new_form]
-    end
-
-    def with_sentinels?
-      options[:with_sentinels]
+    def scaffold_routes
+      log :route, "Scaffolding routes"
     end
 
     def new_form_hidden_variable
@@ -120,15 +51,7 @@ module Draft
     end
 
     def available_views
-      if read_only?
-        %w(index show)
-      elsif skip_redirect?
-        %w(index show new_form create_row edit_form update_row destroy_row)
-      elsif only_new_form?
-        %w(association_new_form)
-      else
-        %w(index new_form new_form_with_errors edit_form edit_form_with_errors show)
-      end
+      %w(index new_form new_form_with_errors edit_form edit_form_with_errors show)
     end
 
     def view_filename_with_extensions(name)
