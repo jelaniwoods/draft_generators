@@ -32,11 +32,7 @@ module Draft
 
     def scaffold_routes
       log :route, "Scaffolding routes"
-      route("resources " + plural_symbol_name + ", only: %i[]")
-    end
-
-    def plural_symbol_name
-      plural_table_name.to_sym
+      route << "resources :#{plural_table_name}, only: %i[]"
     end
 
     def route(routing_code)
