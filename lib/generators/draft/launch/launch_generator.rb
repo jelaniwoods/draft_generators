@@ -24,7 +24,7 @@ module Draft
 
     end
 
-  protected
+  private
     def route(routing_code)
       sentinel = /\.routes\.draw do(?:\s*\|map\|)?\s*$/
 
