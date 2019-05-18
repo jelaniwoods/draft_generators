@@ -2,7 +2,7 @@
 
 
 module Draft
-  class SpikeGenerator < Rails::Generators::Base
+  class SpikeGenerator < Rails::Generators::NamedBase
     source_root File.expand_path('../templates', __FILE__)
 
     remove_hook_for :template_engine
