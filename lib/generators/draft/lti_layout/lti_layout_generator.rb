@@ -34,7 +34,14 @@ module Draft
     def create_root_folder
       empty_directory File.join("app/views", "launches")
     end
+    
+    def route(routing_code)
+      sentinel = /\.routes\.draw do(?:\s*\|map\|)?\s*$/
 
+      inside "config" do
+        insert_into_file "routes.rb", routing_code, after: sentinel
+      end
+    end
 
     def generate_view_files
       available_views.each do |view|
