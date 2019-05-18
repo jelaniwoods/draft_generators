@@ -1,8 +1,3 @@
-# frozen_string_literal: true
-
-# require "generators/draft/lti/lti_controller_generator"
-# require "rails/generators/rails/lti/lti_generator"
-
 module Draft
   class LtiGenerator < Rails::Generators::NamedBase
     source_root File.expand_path("../templates", __FILE__)
@@ -10,9 +5,7 @@ module Draft
     argument :attributes, type: :array, default: [], banner: "field:type field:type"
 
     def generate_controller
-      # invoke Draft::LtiControllerGenerator
       template "controllers/controller.rb", "app/controllers/#{plural_table_name.underscore}_controller.rb"
-
     end
 
     def generate_model
@@ -20,13 +13,13 @@ module Draft
     end
     
     def create_root_folder
-      empty_directory File.join("app/views", "#{plural_table_name}")
+      empty_directory File.join("app/views", plural_table_name)
     end
 
     def generate_view_files
       available_views.each do |view|
         filename = view_filename_with_extensions(view)
-        template filename, File.join("app/views", "#{plural_table_name}", File.basename(options[:new_form_name].presence || filename))
+        template filename, File.join("app/views", plural_table_name.concat(".html.erb")))
       end
     end
 
