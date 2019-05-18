@@ -9,7 +9,7 @@ module Draft
 
       content = "  root \"application#landing\"" +
               "  resource :launch, only: :create" +
-              "  get \"/config" => \"launches#xml_config\"" +
+              "  get \"/config\" => \"launches#xml_config\"" +
               "  get \"/landing\", to: \"application#landing\", as: \"landing\""
 
       inside "config" do
