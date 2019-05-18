@@ -1,14 +1,14 @@
 module Draft
-  class LaunchGenerator < Rails::Generators::NamedBase
+  class LaunchGenerator < Rails::Generators::Base
     source_root File.expand_path('../templates', __FILE__)
     
     def generate_layout
       log :insert, "Scaffolding routes"
-      content = "  root \"application#landing\"" +
-              "  resource :launch, only: :create" +
-              "  get \"/config" => \"launches#xml_config\"" +
-              "  get \"/landing\", to: \"application#landing\", as: \"landing\""
-      route(content)
+      # content = "  root \"application#landing\"" +
+      #         "  resource :launch, only: :create" +
+      #         "  get \"/config" => \"launches#xml_config\"" +
+      #         "  get \"/landing\", to: \"application#landing\", as: \"landing\""
+      # route(content)
 
       log :insert, "Adding launches views"
       empty_directory File.join("app/views", "launches")
@@ -25,12 +25,12 @@ module Draft
     end
 
   protected
-    def route(routing_code)
-      sentinel = /\.routes\.draw do(?:\s*\|map\|)?\s*$/
+    # def route(routing_code)
+    #   sentinel = /\.routes\.draw do(?:\s*\|map\|)?\s*$/
 
-      inside "config" do
-        insert_into_file "routes.rb", routing_code, after: sentinel
-      end
-    end
+    #   inside "config" do
+    #     insert_into_file "routes.rb", routing_code, after: sentinel
+    #   end
+    # end
   end
 end
