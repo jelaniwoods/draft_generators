@@ -23,7 +23,7 @@ module Draft
       template "controllers/controller.rb", "app/controllers/launches_controller.rb"
       
       log :insert, "Adding launch model"
-      run "rails g draft:model payload:jsonb context_id:integer resource_id:integer enrollment_id:integer user_id:integer tool_consumer_id:integer"
+      run "rails g draft:model launch payload:jsonb context_id:integer resource_id:integer enrollment_id:integer user_id:integer tool_consumer_id:integer"
 
       log :insert, "Adding landing page"
       template "views/landing.html.erb", "app/views/launches/landing.html.erb"
