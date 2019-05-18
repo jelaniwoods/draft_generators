@@ -34,25 +34,9 @@ module Draft
       log :route, "Scaffolding routes"
       route <<-RUBY.gsub(/^      /, "")
 
-      # Routes for the #{singular_table_name.humanize} resource:
-
-      # CREATE
-      get("/#{plural_table_name}/new", { :controller => "#{plural_table_name}", :action => "new_form" })
-      #{skip_post? ? "get" : "post"}("/create_#{singular_table_name}", { :controller => "#{plural_table_name}", :action => "create_row" })
-
-      # READ
-      get("/#{plural_table_name}", { :controller => "#{plural_table_name}", :action => "index" })
-      get("/#{plural_table_name}/:id_to_display", { :controller => "#{plural_table_name}", :action => "show" })
-
-      # UPDATE
-      get("/#{plural_table_name}/:prefill_with_id/edit", { :controller => "#{plural_table_name}", :action => "edit_form" })
-      #{skip_post? ? "get" : "post"}("/update_#{singular_table_name}/:id_to_modify", { :controller => "#{plural_table_name}", :action => "update_row" })
-
-      # DELETE
-      get("/delete_#{singular_table_name}/:id_to_remove", { :controller => "#{plural_table_name}", :action => "destroy_row" })
-
-      #------------------------------
-    RUBY
+        resources "#{plural_table_name}".to_sym, only: %i[]
+        
+      RUBY
     end
 
 
