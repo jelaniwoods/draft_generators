@@ -1,102 +1,43 @@
 <div class="row mb-3">
   <div class="col-md-12">
-    <h1>
-      All <%= plural_table_name.humanize.downcase %>
-    </h1>
+    <h1 class="display-4">
+      <%= plural_table_name.titlecase %>
 
-    <a href="/<%= plural_table_name %>/new" class="btn btn-block btn-outline-secondary">
-      Add a new <%= singular_table_name.humanize.downcase %>
-    </a>
+      <%%= link_to new_<%= singular_table_name %>_path, class: "btn btn-lg btn-outline-secondary" do %>
+        <i class="fas fa-plus fa-fw"></i>
+      <%% end %>
+    </h1>
   </div>
 </div>
 
-<% if with_sentinels? -%>
-<!-- Ransack Code start -->
+<!-- Card deck example -->
 
-<!-- Ransack Code end -->
-
-<!-- Location Map Code start -->
-
-<!-- Location Map Code end -->
-<% end -%>
-
-<hr>
-
-<div class="row mb-3">
+<%% @<%= plural_table_name %>.each_slice(3) do |slice| %>
+<div class="row">
   <div class="col-md-12">
-    <table class="table">
-      <tr>
-        <th>
-          ID
-        </th>
+    <div class="card-deck">
+      <%%= render collection: slice, partial: "card", as: :<%= singular_table_name %> %>
+    </div>
+  </div>
+</div>
+<%% end %>
 
-<% attributes.each do |attribute| -%>
-        <th>
-          <%= attribute.human_name %>
-        </th>
+<!-- List group example -->
 
-<% end -%>
-        <th>
-          Created at
-        </th>
+<div class="row justify-content-center mb-3">
+  <div class="col-md-8">
+    <div class="card">
+      <h1 class="card-header h4 d-flex align-items-center justify-content-between">
+        <%= plural_table_name.titlecase %>
 
-        <th>
-          Updated at
-        </th>
+        <%%= link_to new_<%= singular_table_name %>_path, class: "btn btn-sm btn-outline-secondary" do %>
+          <i class="fas fa-plus fa-fw"></i>
+        <%% end %>
+      </h1>
 
-        <th>
-        </th>
-      </tr>
-
-      <%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
-      <tr>
-<% if with_sentinels? -%>
-        <!-- Display <%= singular_table_name %>.id start -->
-<% end -%>
-        <td>
-          <%%= <%= singular_table_name %>.id %>
-        </td>
-<% if with_sentinels? -%>
-        <!-- Display <%= singular_table_name %>.id end -->
-<% end -%>
-
-<% attributes.each do |attribute| -%>
-<% if with_sentinels? -%>
-        <!-- Display <%= singular_table_name %>.<%= attribute.column_name %> start -->
-<% end -%>
-        <td>
-          <%%= <%= singular_table_name %>.<%= attribute.column_name %> %>
-        </td>
-<% if with_sentinels? -%>
-        <!-- Display <%= singular_table_name %>.<%= attribute.column_name %> end -->
-<% end -%>
-
-<% end -%>
-<% if with_sentinels? -%>
-        <!-- Display <%= singular_table_name %>.created_at start -->
-<% end -%>
-        <td>
-          <%%= time_ago_in_words(<%= singular_table_name %>.created_at) %> ago
-        </td>
-<% if with_sentinels? -%>
-        <!-- Display <%= singular_table_name %>.created_at end -->
-
-        <!-- Display <%= singular_table_name %>.updated_at start -->
-<% end -%>
-        <td>
-          <%%= time_ago_in_words(<%= singular_table_name %>.updated_at) %> ago
-        </td>
-<% if with_sentinels? -%>
-        <!-- Display <%= singular_table_name %>.updated_at end -->
-<% end -%>
-
-        <td>
-          <a href="/<%= plural_table_name %>/<%%= <%= singular_table_name %>.id %>">
-            Show details
-          </a>
-        </td>
-      </tr>
-      <%% end %>
-    </table>
+      <div class="list-group list-group-flush">
+        <%%= render collection: @<%= plural_table_name %>, partial: "list_item", as: :<%= singular_table_name %> %>
+      </div>
+    </div>
   </div>
 </div>

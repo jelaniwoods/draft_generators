@@ -1,97 +1,53 @@
 class <%= plural_table_name.camelize %>Controller < ApplicationController
+  before_action <%= singular_table_name.underscore.to_sym %>, only: %i[show edit update destroy]
+
+  # GET /<%= plural_table_name %>
   def index
-    @<%= plural_table_name.underscore %> = <%= class_name.singularize %>.all
-
-    render("<%= singular_table_name.underscore %>_templates/index.html.erb")
+    @users = User.all
   end
 
-  def show
-    @<%= singular_table_name.underscore %> = <%= class_name.singularize %>.find(params.fetch("id_to_display"))
+  # GET /<%= plural_table_name %>/1
+  def show; end
 
-    render("<%= singular_table_name.underscore %>_templates/show.html.erb")
+  # GET /<%= plural_table_name %>/new
+  def new
+    @user = User.new
   end
 
-  def new_form
-    @<%= singular_table_name.underscore %> = <%= class_name.singularize %>.new
+  # GET /<%= plural_table_name %>/1/edit
+  def edit; end
 
-    render("<%= singular_table_name.underscore %>_templates/new_form.html.erb")
-  end
+  # POST /<%= plural_table_name %>
+  def create
+    @user = User.new(user_params)
 
-  def create_row
-    @<%= singular_table_name.underscore %> = <%= class_name.singularize %>.new
-
-<% attributes.each do |attribute| -%>
-    @<%= singular_table_name.underscore %>.<%= attribute.column_name %> = params.fetch("<%= attribute.column_name %>")
-<% end -%>
-
-<% unless skip_validation_alerts? -%>
-    if @<%= singular_table_name.underscore %>.valid?
-      @<%= singular_table_name.underscore %>.save
-
-      redirect_back(:fallback_location => "/<%= @plural_table_name.underscore %>", :notice => "<%= singular_table_name.humanize %> created successfully.")
+    if @user.save
+      redirect_to @user, notice: "User was successfully created."
     else
-      render("<%= singular_table_name.underscore %>_templates/new_form_with_errors.html.erb")
+      render :new
     end
-<% else -%>
-    @<%= singular_table_name.underscore %>.save
-
-<% unless skip_redirect? -%>
-    redirect_to("/<%= @plural_table_name.underscore %>")
-<% else -%>
-    @current_count = <%= class_name.singularize %>.count
-
-    render("<%= singular_table_name.underscore %>_templates/create_row.html.erb")
-<% end -%>
-<% end -%>
   end
 
-  def edit_form
-    @<%= singular_table_name.underscore %> = <%= class_name.singularize %>.find(params.fetch("prefill_with_id"))
-
-    render("<%= singular_table_name.underscore %>_templates/edit_form.html.erb")
-  end
-
-  def update_row
-    @<%= singular_table_name.underscore %> = <%= class_name.singularize %>.find(params.fetch("id_to_modify"))
-
-<% attributes.each do |attribute| -%>
-    @<%= singular_table_name.underscore %>.<%= attribute.column_name %> = params.fetch("<%= attribute.column_name %>")
-<% end -%>
-
-<% unless skip_validation_alerts? -%>
-    if @<%= singular_table_name.underscore %>.valid?
-      @<%= singular_table_name.underscore %>.save
-
-      redirect_to("/<%= @plural_table_name.underscore %>/#{@<%= singular_table_name.underscore %>.id}", :notice => "<%= singular_table_name.humanize %> updated successfully.")
+  # PATCH/PUT /<%= plural_table_name %>/1
+  def update
+    if @user.update(user_params)
+      redirect_to @user, notice: "User was successfully updated."
     else
-      render("<%= singular_table_name.underscore %>_templates/edit_form_with_errors.html.erb")
+      render :edit
     end
-<% else -%>
-    @<%= singular_table_name.underscore %>.save
-
-<% unless skip_redirect? -%>
-    redirect_to("/<%= @plural_table_name.underscore %>/#{@<%= singular_table_name.underscore %>.id}")
-<% else -%>
-    render("<%= singular_table_name.underscore %>_templates/update_row.html.erb")
-<% end -%>
-<% end -%>
   end
 
-  def destroy_row
-    @<%= singular_table_name.underscore %> = <%= class_name.singularize %>.find(params.fetch("id_to_remove"))
-
-    @<%= singular_table_name.underscore %>.destroy
-
-<% unless skip_validation_alerts? -%>
-    redirect_to("/<%= @plural_table_name.underscore %>", :notice => "<%= singular_table_name.humanize %> deleted successfully.")
-<% else -%>
-<% unless skip_redirect? -%>
-    redirect_to("/<%= @plural_table_name.underscore %>")
-<% else -%>
-    @remaining_count = <%= class_name.singularize %>.count
-
-    render("<%= singular_table_name.underscore %>_templates/destroy_row.html.erb")
-<% end -%>
-<% end -%>
+  # DELETE /<%= plural_table_name %>/1
+  def destroy
+    @user.destroy
+    redirect_to users_url, notice: "User was successfully destroyed."
   end
+
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def @set_<%= singular_table_name.underscore %>
+    @<%= singular_table_name.underscore %> = <%= class_name.singularize %>.find(params[:id])
+  end
+
 end
