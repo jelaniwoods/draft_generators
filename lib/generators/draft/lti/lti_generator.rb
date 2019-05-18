@@ -80,5 +80,6 @@ module Draft
         filename = File.join(folders, filename) if folders.any?
         filename
       end
+    end
   end
 end
