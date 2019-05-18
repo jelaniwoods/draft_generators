@@ -7,10 +7,10 @@ module Draft
 
       sentinel = /\.routes\.draw do(?:\s*\|map\|)?\s*$/
 
-      content = "  root \"application#landing\"" +
-              "  resource :launch, only: :create" +
-              "  get \"/config\" => \"launches#xml_config\"" +
-              "  get \"/landing\", to: \"application#landing\", as: \"landing\""
+      content = "  root \"application#landing\"\n" +
+              "  resource :launch, only: :create\n" +
+              "  get \"/config\" => \"launches#xml_config\"\n" +
+              "  get \"/landing\", to: \"application#landing\", as: \"landing\"\n"
 
       inside "config" do
         insert_into_file "routes.rb", content, after: sentinel
@@ -23,7 +23,7 @@ module Draft
       template "controllers/controller.rb", "app/controllers/launches_controller.rb"
       
       log :insert, "Adding launch model"
-      invoke "draft:model payload:jsonb context_id:integer resource_id:integer enrollment_id:integer user_id:integer tool_consumer_id:integer"
+      run "rails g draft:model payload:jsonb context_id:integer resource_id:integer enrollment_id:integer user_id:integer tool_consumer_id:integer"
 
       log :insert, "Adding landing page"
       template "views/landing.html.erb", "app/views/launches/landing.html.erb"
