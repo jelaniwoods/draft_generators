@@ -32,6 +32,24 @@ module Draft
 
     def scaffold_routes
       log :route, "Scaffolding routes"
+      if singular_table_name == "launch"
+        route <<-RUBY.gsub(/^      /, "")
+
+          resources plural_table_name.to_sym, only: :create
+        RUBY
+      end
+      if singular_table_name == "administrator"
+        route <<-RUBY.gsub(/^      /, "")
+
+          devise_for plural_table_name.to_sym
+        RUBY 
+
+      else
+        route <<-RUBY.gsub(/^      /, "")
+
+          resources plural_table_name.to_sym, only: %i[]
+        RUBY         
+      end
     end
 
     def new_form_hidden_variable
