@@ -3,7 +3,7 @@ module Draft
     source_root File.expand_path('../templates', __FILE__)
     
     def generate_layout
-      log :insert, "Scaffolding routes"
+      log :insert, "Launch routes"
 
       sentinel = /\.routes\.draw do(?:\s*\|map\|)?\s*$/
 
