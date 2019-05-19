@@ -7,7 +7,7 @@ module Draft
 
       sentinel = /\.routes\.draw do(?:\s*\|map\|)?\s*$/
 
-      content = "  root \"application#landing\"\n" +
+      content = "\n\troot \"application#landing\"\n" +
               "  resource :launch, only: :create\n" +
               "  get \"/config\" => \"launches#xml_config\"\n" +
               "  get \"/landing\", to: \"application#landing\", as: \"landing\"\n"
