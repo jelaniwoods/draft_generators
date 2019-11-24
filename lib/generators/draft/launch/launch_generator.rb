@@ -27,6 +27,10 @@ module Draft
 
       log :insert, "Adding landing page"
       template "views/landing.html.erb", "app/views/launches/landing.html.erb"
+      
+      log :insert, "Adding Launch Service"
+      empty_directory File.join("app", "services")
+      template "services/launch_service.rb", "app/services/launch_service.rb"
 
     end
 

@@ -18,10 +18,12 @@ module Draft
       content = "  root \"application#landing\"" +
               "  resource :launch, only: :create" +
               "  get \"/config" => \"launches#xml_config\"" +
-              "  get \"/landing\", to: \"application#landing\", as: \"landing\""
+              "  constraints(->(request) { request.host != \"APP_NAME.firstdraft.com\" }) do" +
+                "  get \"/teacher\" => \"resources#teacher_backdoor\"" +
+                "  get \"/student\" => \"resources#student_backdoor\"" +
+              "  end"
       route(content)
     end
-  
     
     def generate_controller
       template "controllers/controller.rb", "app/controllers/launches_controller.rb"
