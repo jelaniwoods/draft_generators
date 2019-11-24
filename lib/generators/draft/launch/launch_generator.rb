@@ -28,7 +28,7 @@ module Draft
       
       landing_action = "  def landing; end\n"
       inside "app/controllers" do
-        insert_into_file "application_controller.rb", content, after: layout_sentinel
+        insert_into_file "application_controller.rb", landing_action, after: layout_sentinel
       end
 
       log :insert, "Adding launches controller"
