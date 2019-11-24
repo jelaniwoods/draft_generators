@@ -10,7 +10,10 @@ module Draft
       content = "\n\troot \"application#landing\"\n" +
               "  resource :launch, only: :create\n" +
               "  get \"/config\" => \"launches#xml_config\"\n" +
-              "  get \"/landing\", to: \"application#landing\", as: \"landing\"\n"
+              "  constraints(->(request) { request.host != \"APP_NAME.firstdraft.com\" }) do" +
+              "    get \"/teacher\" => \"resources#teacher_backdoor\"" +
+              "    get \"/student\" => \"resources#student_backdoor\"" +
+              "  end"
 
       inside "config" do
         insert_into_file "routes.rb", content, after: sentinel
