@@ -27,8 +27,8 @@ module Draft
       layout_sentinel = /^class ApplicationController < ActionController::Base$/
       
       landing_action = "  def landing; end\n"
-      inside "app/views" do
-        insert_into_file "application.html.erb", content, after: layout_sentinel
+      inside "app/controllers" do
+        insert_into_file "application_controller.rb", content, after: layout_sentinel
       end
 
       log :insert, "Adding launches controller"
