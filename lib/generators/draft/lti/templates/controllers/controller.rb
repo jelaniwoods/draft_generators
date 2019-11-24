@@ -1,5 +1,5 @@
 class <%= plural_table_name.camelize %>Controller < ApplicationController
-  before_action <%= singular_table_name.underscore.to_sym %>, only: %i[show edit update destroy]
+  before_action "set_<%= singular_table_name.underscore %>, only: %i[show edit update destroy]
 
   # GET /<%= plural_table_name %>
   def index
