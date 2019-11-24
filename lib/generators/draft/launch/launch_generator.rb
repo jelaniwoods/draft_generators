@@ -10,7 +10,7 @@ module Draft
       content = "\n\troot \"application#landing\"\n" +
               "  resource :launch, only: :create\n" +
               "  get \"/config\" => \"launches#xml_config\"\n" +
-              "  constraints(->(request) { request.host != \"APP_NAME.firstdraft.com\" }) do" +
+              "  constraints(->(request) { request.host != \"APP_NAME.firstdraft.com\" }) do\n" +
               "    get \"/teacher\" => \"resources#teacher_backdoor\"" +
               "    get \"/student\" => \"resources#student_backdoor\"" +
               "  end"
@@ -19,8 +19,17 @@ module Draft
         insert_into_file "routes.rb", content, after: sentinel
       end
 
-      log :insert, "Adding launches views"
-      empty_directory File.join("app/views", "launches")
+      # log :insert, "Adding launches views"
+      # empty_directory File.join("app/views", "launches")
+
+      log :insert, "Adding landing page RCAV"
+
+      layout_sentinel = /^class ApplicationController < ActionController::Base$/
+      
+      landing_action = "  def landing; end\n"
+      inside "app/views" do
+        insert_into_file "application.html.erb", content, after: 
+      end
 
       log :insert, "Adding launches controller"
       template "controllers/controller.rb", "app/controllers/launches_controller.rb"
@@ -29,7 +38,8 @@ module Draft
       run "rails g draft:model launch payload:jsonb context_id:integer resource_id:integer enrollment_id:integer user_id:integer tool_consumer_id:integer"
 
       log :insert, "Adding landing page"
-      template "views/landing.html.erb", "app/views/launches/landing.html.erb"
+      empty_directory File.join("app/views", "application")
+      template "views/landing.html.erb", "app/views/application/landing.html.erb"
       
       log :insert, "Adding Launch Service"
       empty_directory File.join("app", "services")
