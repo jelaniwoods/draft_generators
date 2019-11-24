@@ -11,8 +11,8 @@ module Draft
               "  resource :launch, only: :create\n" +
               "  get \"/config\" => \"launches#xml_config\"\n" +
               "  constraints(->(request) { request.host != \"APP_NAME.firstdraft.com\" }) do\n" +
-              "    get \"/teacher\" => \"resources#teacher_backdoor\"" +
-              "    get \"/student\" => \"resources#student_backdoor\"" +
+              "    get \"/teacher\" => \"resources#teacher_backdoor\"\n" +
+              "    get \"/student\" => \"resources#student_backdoor\"\n" +
               "  end"
 
       inside "config" do
