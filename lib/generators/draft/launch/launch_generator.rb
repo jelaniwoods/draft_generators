@@ -10,7 +10,7 @@ module Draft
       content = "\n\troot \"application#landing\"\n" +
               "  resource :launch, only: :create\n" +
               "  get \"/config\" => \"launches#xml_config\"\n" +
-              "  constraints(->(request) { request.host != \"APP_NAME.firstdraft.com\" }) do\n" +
+              "  constraints(->(request) { request.host != \"#{Rails.application.class.module_parent.to_s.underscore}.firstdraft.com\" }) do\n" +
               "    get \"/teacher\" => \"resources#teacher_backdoor\"\n" +
               "    get \"/student\" => \"resources#student_backdoor\"\n" +
               "  end"
@@ -23,10 +23,18 @@ module Draft
       # empty_directory File.join("app/views", "launches")
 
       log :insert, "Adding landing page RCAV"
+      log :insert, "Adding current_enrollment helper method"
 
       layout_sentinel = /^class ApplicationController < ActionController::Base$/
-      
-      landing_action = "\n  def landing; end\n"
+      landing_action = "  helper_method :current_enrollment\n" +
+      "  def set_current_enrollment(enrollment)\n" +
+      "    session[:enrollment_id] = enrollment.id\n" +
+      "    @enrollment = enrollment\n" +
+      "  end\n\n" +
+      "  def current_enrollment\n" +
+      "    @enrollment ||= Enrollment.find(session[:enrollment_id])\n" +
+      "  end\n"
+      landing_action += "\n  def landing; end\n"
       inside "app/controllers" do
         insert_into_file "application_controller.rb", landing_action, after: layout_sentinel
       end

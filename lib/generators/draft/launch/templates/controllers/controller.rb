@@ -18,12 +18,11 @@ class LaunchesController < ApplicationController
     respond_to do |format|
       format.xml do
         tool_config = IMS::LTI::ToolConfig.new(
-          title: "Firstdraft Chat",
+          title: "firstdraft #{Rails.application.class.module_parent.to_s.underscore}",
           launch_url: launch_url,
         )
 
-        tool_config.description = "This LTI Tool provides a live chat service
-        for your class"
+        tool_config.description = "This LTI Tool provides some good vibes!"
 
         render xml: tool_config.to_xml
       end

@@ -21,7 +21,7 @@ module Draft
       available_views.each do |view|
         filename = view_filename_with_extensions(view)
         template filename, File.join("app/views", plural_table_name, File.basename(options[:new_form_name].presence || filename))
-      end
+      end 
     end
 
     def generate_routes
